@@ -138,15 +138,15 @@ class LocationService : Service() {
                     )// Se imprime el lugar y la probabilidad de que sea el lugar correcto
 
                     if (lastPlace != placeLikelihood.place.name) {// Se verifica si el lugar actual es diferente al último lugar visitado
-                        lastPlace = placeLikelihood.place.name!!//lo reemplaza por el lugar actual
+//                        lastPlace = placeLikelihood.place.name!!//lo reemplaza por el lugar actual
                         placeLikelihood.place.name?.let { checkIfPlaceHasArticles(it) }//en caso de que sea distinto se verifica si el lugar tiene artículos,
                     } else {// si son iguales se imprime un mensaje en el log
                         Log.e("AAA", "Mismo lugar o no se encontraron artículos")
-                        Log.e(
-                            "AAA",
-                            "Lugar anterior: $lastPlace, lugar actual: ${placeLikelihood.place.name}"
-                        )
                     }
+                    Log.e(
+                        "AAA",
+                        "Lugar anterior: $lastPlace, lugar actual: ${placeLikelihood.place.name}"
+                    )
 
                 }
             } else {
@@ -201,6 +201,7 @@ class LocationService : Service() {
 
                 if (pages != null) {
                     if (pages.isNotEmpty()) {
+                        lastPlace = placeName//lo reemplaza por el lugar actual
                         sendNotification(placeName, pages[0].title)//si se encuentran artículos se envía una notificación
                     } else {
                         Toast.makeText(
